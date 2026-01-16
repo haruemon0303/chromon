@@ -1147,28 +1147,113 @@ function drawPlayer(ctx, x, y, direction) {
     ctx.fillRect(x + 9, y + 12, 2, 2);
 }
 
-function drawNPC(ctx, x, y, type = 'generic') {
-    // NPC: タイプに応じて色を変える
-    if (type === 'professor') {
-        // 博士: 帽子付き
-        ctx.fillStyle = Colors.darkest;
-        ctx.fillRect(x + 3, y + 1, 10, 2);  // 帽子
-        ctx.fillStyle = Colors.light;
-        ctx.fillRect(x + 4, y + 3, 8, 4);   // 頭
-        ctx.fillStyle = Colors.dark;
-        ctx.fillRect(x + 5, y + 7, 6, 7);   // 体
-    } else {
-        // 一般村人
-        ctx.fillStyle = Colors.light;
-        ctx.fillRect(x + 4, y + 2, 8, 4);   // 頭
-        ctx.fillStyle = Colors.dark;
-        ctx.fillRect(x + 5, y + 6, 6, 8);   // 体
-    }
+function drawNPC(ctx, x, y, id = 'generic') {
+    // NPC: IDに応じて異なるシルエットを描画
 
-    // 目
+    // 足元の影（話しかけ可能NPC用）
     ctx.fillStyle = Colors.darkest;
-    ctx.fillRect(x + 5, y + 3, 2, 1);
-    ctx.fillRect(x + 9, y + 3, 2, 1);
+    ctx.fillRect(x + 6, y + 14, 4, 1);  // 影
+
+    switch(id) {
+        case 'professor':
+            // 博士: 帽子付き、白衣
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(x + 3, y + 1, 10, 2);  // 帽子
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(x + 4, y + 3, 8, 4);   // 頭
+            ctx.fillStyle = Colors.lightest;
+            ctx.fillRect(x + 5, y + 7, 6, 7);   // 白衣
+            // 目
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(x + 5, y + 4, 2, 1);
+            ctx.fillRect(x + 9, y + 4, 2, 1);
+            // 白衣のポケット
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(x + 6, y + 9, 2, 2);
+            break;
+
+        case 'assistant':
+            // 助手: 短髪、眼鏡風、白衣
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(x + 4, y + 2, 8, 3);   // 髪
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(x + 4, y + 4, 8, 3);   // 顔
+            ctx.fillStyle = Colors.lightest;
+            ctx.fillRect(x + 5, y + 7, 6, 7);   // 白衣
+            // 眼鏡風
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(x + 5, y + 5, 2, 1);
+            ctx.fillRect(x + 9, y + 5, 2, 1);
+            ctx.fillRect(x + 7, y + 5, 2, 1);   // ブリッジ
+            break;
+
+        case 'rival':
+            // ライバル: スパイキーな髪、元気な服
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(x + 5, y + 1, 2, 2);   // 髪の毛（左）
+            ctx.fillRect(x + 9, y + 1, 2, 2);   // 髪の毛（右）
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(x + 4, y + 2, 8, 3);   // 髪
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(x + 4, y + 4, 8, 3);   // 顔
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(x + 5, y + 7, 6, 7);   // 服
+            // 目
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(x + 5, y + 5, 2, 1);
+            ctx.fillRect(x + 9, y + 5, 2, 1);
+            // 服のライン
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(x + 8, y + 8, 1, 5);
+            break;
+
+        case 'elder':
+            // 長老: 長い髭、暗いローブ
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(x + 4, y + 2, 8, 3);   // 髪（少なめ）
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(x + 4, y + 4, 8, 3);   // 顔
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(x + 4, y + 7, 8, 7);   // 暗いローブ
+            // 目
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(x + 5, y + 5, 2, 1);
+            ctx.fillRect(x + 9, y + 5, 2, 1);
+            // 長い髭
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(x + 5, y + 6, 6, 1);
+            ctx.fillRect(x + 5, y + 7, 2, 2);
+            ctx.fillRect(x + 9, y + 7, 2, 2);
+            break;
+
+        case 'ancient_guide':
+            // 古代の案内人: 頭飾り（バンダナ）、シンプルな服
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(x + 4, y + 2, 8, 1);   // 頭飾り
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(x + 4, y + 3, 8, 4);   // 顔
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(x + 5, y + 7, 6, 7);   // 服
+            // 目
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(x + 5, y + 4, 2, 1);
+            ctx.fillRect(x + 9, y + 4, 2, 1);
+            // 頭飾りの結び目
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(x + 11, y + 2, 2, 2);
+            break;
+
+        default:
+            // 一般村人（デフォルト）
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(x + 4, y + 2, 8, 4);   // 頭
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(x + 5, y + 6, 6, 8);   // 体
+            // 目
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(x + 5, y + 3, 2, 1);
+            ctx.fillRect(x + 9, y + 3, 2, 1);
+    }
 }
 
 function drawCreature(ctx, x, y, creatureId, scale = 1) {
@@ -1288,8 +1373,7 @@ function renderField() {
     map.npcs.forEach(npc => {
         const npcX = npc.x * TILE_SIZE - GameState.camera.x;
         const npcY = npc.y * TILE_SIZE - GameState.camera.y;
-        const npcType = npc.id.includes('professor') ? 'professor' : 'generic';
-        drawNPC(ctx, npcX, npcY, npcType);
+        drawNPC(ctx, npcX, npcY, npc.id);
     });
 
     // Render player
