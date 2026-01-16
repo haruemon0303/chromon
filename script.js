@@ -1097,6 +1097,146 @@ function getBattleMenuItemCount() {
     return 1;
 }
 
+// ===== SPRITE DRAWING HELPERS =====
+const Colors = {
+    darkest: '#0f380f',
+    dark: '#306230',
+    light: '#8bac0f',
+    lightest: '#9bbc0f'
+};
+
+function drawPlayer(ctx, x, y, direction) {
+    // 主人公: 16x16のシンプルなキャラクター
+    // ボディ（濃い緑）
+    ctx.fillStyle = Colors.darkest;
+    ctx.fillRect(x + 5, y + 4, 6, 8);  // 体
+
+    // 頭（明るい緑）
+    ctx.fillStyle = Colors.light;
+    ctx.fillRect(x + 4, y + 2, 8, 4);  // 頭
+
+    // 目（方向で変化）
+    ctx.fillStyle = Colors.darkest;
+    if (direction === 'up') {
+        ctx.fillRect(x + 5, y + 2, 2, 1);
+        ctx.fillRect(x + 9, y + 2, 2, 1);
+    } else if (direction === 'down') {
+        ctx.fillRect(x + 5, y + 4, 2, 1);
+        ctx.fillRect(x + 9, y + 4, 2, 1);
+    } else if (direction === 'left') {
+        ctx.fillRect(x + 5, y + 3, 2, 1);
+        ctx.fillRect(x + 8, y + 3, 2, 1);
+    } else {  // right
+        ctx.fillRect(x + 6, y + 3, 2, 1);
+        ctx.fillRect(x + 10, y + 3, 2, 1);
+    }
+
+    // 脚
+    ctx.fillStyle = Colors.dark;
+    ctx.fillRect(x + 5, y + 12, 2, 2);
+    ctx.fillRect(x + 9, y + 12, 2, 2);
+}
+
+function drawNPC(ctx, x, y, type = 'generic') {
+    // NPC: タイプに応じて色を変える
+    if (type === 'professor') {
+        // 博士: 帽子付き
+        ctx.fillStyle = Colors.darkest;
+        ctx.fillRect(x + 3, y + 1, 10, 2);  // 帽子
+        ctx.fillStyle = Colors.light;
+        ctx.fillRect(x + 4, y + 3, 8, 4);   // 頭
+        ctx.fillStyle = Colors.dark;
+        ctx.fillRect(x + 5, y + 7, 6, 7);   // 体
+    } else {
+        // 一般村人
+        ctx.fillStyle = Colors.light;
+        ctx.fillRect(x + 4, y + 2, 8, 4);   // 頭
+        ctx.fillStyle = Colors.dark;
+        ctx.fillRect(x + 5, y + 6, 6, 8);   // 体
+    }
+
+    // 目
+    ctx.fillStyle = Colors.darkest;
+    ctx.fillRect(x + 5, y + 3, 2, 1);
+    ctx.fillRect(x + 9, y + 3, 2, 1);
+}
+
+function drawCreature(ctx, x, y, creatureId, scale = 1) {
+    // モンスター: IDに応じて異なる見た目
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+
+    switch(creatureId) {
+        case 'sproutail':  // メビー（草）
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(2, 4, 12, 8);  // 体
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(6, 2, 4, 4);   // 芽
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(5, 6, 2, 2);   // 目
+            ctx.fillRect(9, 6, 2, 2);
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(4, 12, 3, 3);  // 尻尾（芽）
+            break;
+
+        case 'embercub':  // ヒコ（炎）
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(3, 4, 10, 7);  // 体
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(4, 2, 8, 4);   // 頭
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(5, 3, 2, 2);   // 目
+            ctx.fillRect(9, 3, 2, 2);
+            // 炎マーク
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(7, 1, 2, 2);
+            break;
+
+        case 'aquafin':  // スイヒレ（水）
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(4, 5, 8, 6);   // 体
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(2, 7, 4, 2);   // 左ヒレ
+            ctx.fillRect(10, 7, 4, 2);  // 右ヒレ
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(6, 6, 1, 2);   // 目
+            ctx.fillRect(9, 6, 1, 2);
+            break;
+
+        case 'windling':  // フウヨク（風）
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(5, 5, 6, 5);   // 体
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(3, 4, 3, 2);   // 左翼
+            ctx.fillRect(10, 4, 3, 2);  // 右翼
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(6, 6, 1, 1);   // 目
+            ctx.fillRect(9, 6, 1, 1);
+            break;
+
+        case 'rockhorn':  // ガンカク（岩）
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(3, 6, 10, 7);  // 体
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(5, 3, 6, 4);   // 角
+            ctx.fillStyle = Colors.light;
+            ctx.fillRect(5, 8, 2, 2);   // 目
+            ctx.fillRect(9, 8, 2, 2);
+            break;
+
+        default:
+            // デフォルト
+            ctx.fillStyle = Colors.dark;
+            ctx.fillRect(4, 4, 8, 8);
+            ctx.fillStyle = Colors.darkest;
+            ctx.fillRect(6, 6, 2, 2);
+            ctx.fillRect(10, 6, 2, 2);
+    }
+
+    ctx.restore();
+}
+
 // ===== RENDERING =====
 function render() {
     ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -1136,33 +1276,16 @@ function renderField() {
 
     // Render NPCs
     map.npcs.forEach(npc => {
-        ctx.fillStyle = '#306230';
-        ctx.fillRect(
-            npc.x * TILE_SIZE - GameState.camera.x + 4,
-            npc.y * TILE_SIZE - GameState.camera.y + 2,
-            8,
-            12
-        );
+        const npcX = npc.x * TILE_SIZE - GameState.camera.x;
+        const npcY = npc.y * TILE_SIZE - GameState.camera.y;
+        const npcType = npc.id.includes('professor') ? 'professor' : 'generic';
+        drawNPC(ctx, npcX, npcY, npcType);
     });
 
     // Render player
     const playerX = GameState.player.x * TILE_SIZE - GameState.camera.x;
     const playerY = GameState.player.y * TILE_SIZE - GameState.camera.y;
-
-    ctx.fillStyle = '#0f380f';
-    ctx.fillRect(playerX + 4, playerY + 2, 8, 12);
-
-    // Draw direction indicator
-    ctx.fillStyle = '#8bac0f';
-    if (GameState.player.direction === 'up') {
-        ctx.fillRect(playerX + 6, playerY + 2, 4, 2);
-    } else if (GameState.player.direction === 'down') {
-        ctx.fillRect(playerX + 6, playerY + 12, 4, 2);
-    } else if (GameState.player.direction === 'left') {
-        ctx.fillRect(playerX + 4, playerY + 6, 2, 4);
-    } else if (GameState.player.direction === 'right') {
-        ctx.fillRect(playerX + 10, playerY + 6, 2, 4);
-    }
+    drawPlayer(ctx, playerX, playerY, GameState.player.direction);
 
     // In battle mode, draw creatures
     if (GameState.mode === 'battle') {
@@ -1171,17 +1294,21 @@ function renderField() {
 }
 
 function renderBattleCreatures() {
-    // Enemy creature (top right)
-    ctx.fillStyle = '#306230';
-    ctx.fillRect(100, 30, 24, 24);
-    ctx.fillStyle = '#0f380f';
-    ctx.fillRect(104, 34, 16, 16);
+    const { enemy, playerCreature } = GameState.battle;
 
-    // Player creature (bottom left)
-    ctx.fillStyle = '#8bac0f';
-    ctx.fillRect(30, 80, 24, 24);
-    ctx.fillStyle = '#0f380f';
-    ctx.fillRect(34, 84, 16, 16);
+    // Enemy creature (top right) - larger scale
+    if (enemy) {
+        drawCreature(ctx, 100, 20, enemy.id, 2.0);
+    }
+
+    // Player creature (bottom left) - larger scale, flipped
+    if (playerCreature) {
+        ctx.save();
+        ctx.translate(50, 90);
+        ctx.scale(-1.5, 1.5);  // 左右反転 + 拡大
+        drawCreature(ctx, -16, 0, playerCreature.id, 1);
+        ctx.restore();
+    }
 }
 
 // ===== INPUT HANDLING =====
