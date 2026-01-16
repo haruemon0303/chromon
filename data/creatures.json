@@ -5,9 +5,9 @@
       "name": "メビー",
       "type": "草",
       "baseStats": {
-        "hp": 45,
+        "hp": 55,
         "attack": 49,
-        "defense": 49,
+        "defense": 55,
         "speed": 45
       },
       "moves": ["vine_strike", "tackle"],
@@ -20,9 +20,9 @@
       "name": "ヒコ",
       "type": "炎",
       "baseStats": {
-        "hp": 39,
+        "hp": 49,
         "attack": 52,
-        "defense": 43,
+        "defense": 49,
         "speed": 65
       },
       "moves": ["flame_burst", "scratch"],
@@ -35,9 +35,9 @@
       "name": "スイヒレ",
       "type": "水",
       "baseStats": {
-        "hp": 44,
+        "hp": 54,
         "attack": 48,
-        "defense": 65,
+        "defense": 71,
         "speed": 43
       },
       "moves": ["water_pulse", "tackle"],

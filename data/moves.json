@@ -52,8 +52,8 @@
       "id": "rock_throw",
       "name": "岩投げ",
       "type": "岩",
-      "power": 50,
-      "accuracy": 85,
+      "power": 35,
+      "accuracy": 75,
       "description": "岩を投げつけて攻撃する。"
     }
   ]

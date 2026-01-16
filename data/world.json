@@ -42,7 +42,7 @@
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
       ],
       "encounterZones": [
-        {"tiles": [6], "rate": 10, "creatures": ["windling", "rockhorn"]}
+        {"tiles": [6], "rate": 8, "creatures": ["windling"]}
       ],
       "warps": [
         {"x": 9, "y": 5, "toMap": "lab_interior", "toX": 4, "toY": 6, "direction": "up"}
