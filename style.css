@@ -21,7 +21,7 @@ html, body {
     overflow: hidden;
     touch-action: none;
     background-color: var(--gb-darkest);
-    font-family: 'Courier New', monospace;
+    font-family: 'Courier New', 'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, 'MS Pゴシック', sans-serif;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -396,7 +396,7 @@ html, body {
 /* Landscape mode warning */
 @media (orientation: landscape) and (max-height: 500px) {
     #game-container::before {
-        content: "Please rotate to portrait mode";
+        content: "縦画面に回転してください";
         position: fixed;
         top: 50%;
         left: 50%;

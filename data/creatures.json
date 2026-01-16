@@ -2,8 +2,8 @@
   "creatures": [
     {
       "id": "sproutail",
-      "name": "Sproutail",
-      "type": "Nature",
+      "name": "メビー",
+      "type": "草",
       "baseStats": {
         "hp": 45,
         "attack": 49,
@@ -13,12 +13,12 @@
       "moves": ["vine_strike", "tackle"],
       "captureRate": 45,
       "wildLevel": [3, 5],
-      "description": "A small creature with a tail like a sprouting plant. Found in grasslands."
+      "description": "芽のような尻尾を持つ小さな生物。草原に生息する。"
     },
     {
       "id": "embercub",
-      "name": "Embercub",
-      "type": "Flame",
+      "name": "ヒコ",
+      "type": "炎",
       "baseStats": {
         "hp": 39,
         "attack": 52,
@@ -28,12 +28,12 @@
       "moves": ["flame_burst", "scratch"],
       "captureRate": 45,
       "wildLevel": [3, 5],
-      "description": "A fiery young beast. Its fur glows when excited."
+      "description": "炎を纏う幼獣。興奮すると体毛が輝く。"
     },
     {
       "id": "aquafin",
-      "name": "Aquafin",
-      "type": "Aqua",
+      "name": "スイヒレ",
+      "type": "水",
       "baseStats": {
         "hp": 44,
         "attack": 48,
@@ -43,12 +43,12 @@
       "moves": ["water_pulse", "tackle"],
       "captureRate": 45,
       "wildLevel": [3, 5],
-      "description": "A creature with fin-like appendages. Lives near water."
+      "description": "鰭のような手足を持つ生物。水辺に棲む。"
     },
     {
       "id": "windling",
-      "name": "Windling",
-      "type": "Sky",
+      "name": "フウヨク",
+      "type": "風",
       "baseStats": {
         "hp": 40,
         "attack": 45,
@@ -58,12 +58,12 @@
       "moves": ["gust", "tackle"],
       "captureRate": 50,
       "wildLevel": [2, 4],
-      "description": "A swift aerial creature. Rarely touches the ground."
+      "description": "素早く空を飛ぶ生物。滅多に地面に降りない。"
     },
     {
       "id": "rockhorn",
-      "name": "Rockhorn",
-      "type": "Stone",
+      "name": "ガンカク",
+      "type": "岩",
       "baseStats": {
         "hp": 50,
         "attack": 65,
@@ -73,7 +73,7 @@
       "moves": ["rock_throw", "tackle"],
       "captureRate": 40,
       "wildLevel": [3, 6],
-      "description": "A sturdy creature with a horn made of hardened stone."
+      "description": "硬質化した角を持つ頑丈な生物。"
     }
   ]
 }

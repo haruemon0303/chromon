@@ -2,83 +2,83 @@
   "dialogues": {
     "professor_intro": {
       "text": [
-        "Welcome to Kagen Village!",
-        "I am Professor Chronos.",
-        "I study the ancient ruins and",
-        "the mysteries of time itself.",
-        "Have you been to the lab yet?",
-        "My assistant can give you a",
-        "companion creature to start!"
+        "カゲン村へようこそ！",
+        "私はクロノス博士じゃ。",
+        "古代遺跡と時間の謎を",
+        "研究しておる。",
+        "もう研究所には行ったかな？",
+        "助手が最初の仲間を",
+        "授けてくれるぞ！"
       ]
     },
     "rival_intro": {
       "text": [
-        "Hey! I'm getting my first",
-        "creature today too!",
-        "Let's see who becomes the",
-        "better trainer!"
+        "やあ！ぼくも今日",
+        "最初の仲間をもらうんだ！",
+        "どっちが強いトレーナーに",
+        "なれるか、勝負だね！"
       ]
     },
     "elder_intro": {
       "text": [
-        "Greetings, traveler.",
-        "In ancient times, people lived",
-        "in harmony with creatures.",
-        "The great tree connects past",
-        "and future. Guard it well."
+        "ようこそ、旅人よ。",
+        "古の時代、人々は生物と",
+        "調和して暮らしておった。",
+        "大樹は過去と未来を繋ぐ。",
+        "よく守るのじゃぞ。"
       ]
     },
     "assistant_starter": {
       "text": [
-        "Hello! Welcome to the lab!",
-        "Would you like to choose your",
-        "first companion creature?",
+        "こんにちは！研究所へようこそ！",
+        "最初のパートナーを",
+        "選びますか？",
         "",
-        "We have three available:",
-        "SPROUTAIL (Nature type)",
-        "EMBERCUB (Flame type)",
-        "AQUAFIN (Aqua type)",
+        "３体の中から選べます：",
+        "メビー（草タイプ）",
+        "ヒコ（炎タイプ）",
+        "スイヒレ（水タイプ）",
         "",
-        "Which will you choose?"
+        "どの子にしますか？"
       ],
-      "choices": ["Sproutail", "Embercub", "Aquafin"],
+      "choices": ["メビー", "ヒコ", "スイヒレ"],
       "giveCreature": true
     },
     "timeline_event": {
       "text": [
-        "You approach the great tree.",
-        "Its roots glow with ancient",
-        "energy...",
+        "大樹に近づいた。",
+        "根が古代の力で",
+        "光り輝いている……",
         "",
-        "The world shimmers around you!",
+        "世界が揺らめいている！",
         "",
-        "Time itself is shifting!",
+        "時間そのものが動いている！",
         "",
-        "You have crossed into a",
-        "different era!"
+        "別の時代へ",
+        "渡ってしまった！"
       ],
       "triggersTimeline": true
     },
     "wild_encounter": {
       "text": [
-        "A wild creature appeared!"
+        "野生の生物が現れた！"
       ]
     },
     "battle_won": {
       "text": [
-        "You won the battle!",
-        "Your creature gained EXP!"
+        "勝利した！",
+        "仲間が経験値を得た！"
       ]
     },
     "capture_success": {
       "text": [
-        "Gotcha!",
-        "{creature} was captured!"
+        "やった！",
+        "{creature}を捕獲した！"
       ]
     },
     "capture_fail": {
       "text": [
-        "Oh no! The creature broke free!"
+        "しまった！逃げられた！"
       ]
     }
   }

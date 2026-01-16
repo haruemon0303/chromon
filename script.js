@@ -219,12 +219,12 @@ function saveGame() {
 
     try {
         localStorage.setItem('chronobonds_save', JSON.stringify(saveData));
-        showMessage('Game saved!');
+        showMessage('セーブしました！');
         Sound.play('success');
         return true;
     } catch (error) {
         console.error('Save failed:', error);
-        showMessage('Save failed!');
+        showMessage('セーブに失敗しました！');
         return false;
     }
 }
@@ -233,7 +233,7 @@ function loadGame() {
     try {
         const saveData = localStorage.getItem('chronobonds_save');
         if (!saveData) {
-            showMessage('No save data found!');
+            showMessage('セーブデータがありません！');
             return false;
         }
 
@@ -245,18 +245,18 @@ function loadGame() {
         GameState.settings = data.settings;
 
         Sound.updateVolume();
-        showMessage('Game loaded!');
+        showMessage('ロードしました！');
         Sound.play('success');
         return true;
     } catch (error) {
         console.error('Load failed:', error);
-        showMessage('Load failed!');
+        showMessage('ロードに失敗しました！');
         return false;
     }
 }
 
 function resetGame() {
-    if (confirm('Reset all progress? This cannot be undone!')) {
+    if (confirm('全てのデータをリセットしますか？この操作は取り消せません！')) {
         localStorage.removeItem('chronobonds_save');
         location.reload();
     }
@@ -453,7 +453,7 @@ function giveStarterCreature(choice) {
     GameState.party.push(creature);
     GameState.flags.has_starter = true;
 
-    showMessage(`You received ${creature.name}!`);
+    showMessage(`${creature.name}を仲間にした！`);
     Sound.play('success');
 }
 
@@ -472,12 +472,13 @@ function switchTimeline() {
     const newTimeline = GameState.player.timeline === 'modern' ? 'ancient' : 'modern';
     const newMap = GameState.player.timeline === 'modern' ?
         'hometown_ancient' : 'hometown_modern';
+    const timelineName = newTimeline === 'modern' ? '現代' : '古代';
 
     GameState.player.timeline = newTimeline;
     GameState.player.map = newMap;
     GameState.flags.timeline_switched = true;
 
-    showMessage(`Time shifted to ${newTimeline} era!`);
+    showMessage(`${timelineName}に時間が移動した！`);
     Sound.play('success');
 }
 
@@ -549,7 +550,7 @@ function triggerEncounter(zone) {
     GameState.battle.playerCreature = GameState.party[0];
     GameState.battle.menuState = 'main';
     GameState.battle.selectedIndex = 0;
-    GameState.battle.message = `Wild ${enemy.name} appeared!`;
+    GameState.battle.message = `野生の${enemy.name}が現れた！`;
     GameState.battle.active = true;
     GameState.mode = 'battle';
 
@@ -633,7 +634,7 @@ function executeMove(moveId) {
     const damage = calculateDamage(player, enemy, moveData);
     enemy.currentHp = Math.max(0, enemy.currentHp - damage);
 
-    GameState.battle.message = `${player.name} used ${moveData.name}!`;
+    GameState.battle.message = `${player.name}の ${moveData.name}！`;
     updateBattleDisplay();
 
     setTimeout(() => {
@@ -656,7 +657,7 @@ function enemyTurn() {
     const damage = calculateDamage(enemy, player, moveData);
     player.currentHp = Math.max(0, player.currentHp - damage);
 
-    GameState.battle.message = `Enemy ${enemy.name} used ${moveData.name}!`;
+    GameState.battle.message = `敵の${enemy.name}の ${moveData.name}！`;
     updateBattleDisplay();
 
     setTimeout(() => {
@@ -691,7 +692,7 @@ function useItem(itemId) {
         player.currentHp = Math.min(player.maxHp, player.currentHp + healAmount);
         GameState.items.heal_herb--;
 
-        GameState.battle.message = `${player.name} was healed!`;
+        GameState.battle.message = `${player.name}のHPが回復した！`;
         updateBattleDisplay();
 
         setTimeout(() => {
@@ -702,13 +703,13 @@ function useItem(itemId) {
 
 function attemptCapture() {
     if (GameState.items.capture_orb === 0) {
-        GameState.battle.message = 'No Capture Orbs left!';
+        GameState.battle.message = '捕獲オーブがない！';
         GameState.battle.animating = false;
         return;
     }
 
     if (GameState.party.length >= 3) {
-        GameState.battle.message = 'Party is full!';
+        GameState.battle.message = 'パーティがいっぱいだ！';
         GameState.battle.animating = false;
         return;
     }
@@ -722,7 +723,7 @@ function attemptCapture() {
     const hpRatio = enemy.currentHp / enemy.maxHp;
     const catchRate = creatureData.captureRate * (1 - hpRatio * 0.5);
 
-    GameState.battle.message = 'Capture Orb thrown!';
+    GameState.battle.message = '捕獲オーブを投げた！';
     updateBattleDisplay();
 
     // Simulate shakes
@@ -739,7 +740,7 @@ function attemptCapture() {
 function captureSuccess(creature) {
     Sound.play('success');
     GameState.party.push(creature);
-    GameState.battle.message = `${creature.name} was captured!`;
+    GameState.battle.message = `${creature.name}を捕まえた！`;
     updateBattleDisplay();
 
     setTimeout(() => {
@@ -749,7 +750,7 @@ function captureSuccess(creature) {
 
 function captureFail() {
     Sound.play('fail');
-    GameState.battle.message = 'The creature broke free!';
+    GameState.battle.message = '逃げられてしまった！';
     updateBattleDisplay();
 
     setTimeout(() => {
@@ -761,7 +762,7 @@ function attemptRun() {
     const runChance = 50 + (GameState.battle.playerCreature.speed - GameState.battle.enemy.speed);
 
     if (Math.random() * 100 < runChance) {
-        GameState.battle.message = 'Got away safely!';
+        GameState.battle.message = 'うまく逃げ切れた！';
         updateBattleDisplay();
         Sound.play('success');
 
@@ -769,7 +770,7 @@ function attemptRun() {
             endBattle();
         }, 1000);
     } else {
-        GameState.battle.message = "Can't escape!";
+        GameState.battle.message = '逃げられなかった！';
         updateBattleDisplay();
         Sound.play('fail');
 
@@ -781,7 +782,7 @@ function attemptRun() {
 
 function winBattle() {
     Sound.play('success');
-    GameState.battle.message = `Wild ${GameState.battle.enemy.name} fainted!`;
+    GameState.battle.message = `野生の${GameState.battle.enemy.name}を倒した！`;
     updateBattleDisplay();
 
     setTimeout(() => {
@@ -791,7 +792,7 @@ function winBattle() {
 
 function loseBattle() {
     Sound.play('fail');
-    GameState.battle.message = `${GameState.battle.playerCreature.name} fainted!`;
+    GameState.battle.message = `${GameState.battle.playerCreature.name}は倒れた！`;
     updateBattleDisplay();
 
     setTimeout(() => {
@@ -812,12 +813,12 @@ function showMenu() {
     GameState.menu.active = true;
     GameState.menu.selectedIndex = 0;
     GameState.menu.items = [
-        { label: 'PARTY', action: () => showPartyMenu() },
-        { label: 'ITEMS', action: () => showItemsMenu() },
-        { label: 'SAVE', action: () => { saveGame(); closeMenu(); } },
-        { label: 'LOAD', action: () => { loadGame(); closeMenu(); } },
-        { label: 'SETTINGS', action: () => showSettingsMenu() },
-        { label: 'CLOSE', action: () => closeMenu() }
+        { label: 'パーティ', action: () => showPartyMenu() },
+        { label: 'どうぐ', action: () => showItemsMenu() },
+        { label: 'セーブ', action: () => { saveGame(); closeMenu(); } },
+        { label: 'ロード', action: () => { loadGame(); closeMenu(); } },
+        { label: '設定', action: () => showSettingsMenu() },
+        { label: '閉じる', action: () => closeMenu() }
     ];
     GameState.mode = 'menu';
     updateMenuDisplay();
@@ -854,18 +855,22 @@ function closeMenu() {
 }
 
 function showPartyMenu() {
-    let partyText = 'PARTY:\n\n';
+    let partyText = 'パーティ:\n\n';
     GameState.party.forEach((c, i) => {
         partyText += `${i + 1}. ${c.name} Lv${c.level}\n`;
         partyText += `   HP: ${c.currentHp}/${c.maxHp}\n`;
     });
-    showMessage(partyText || 'No creatures in party!');
+    showMessage(partyText || 'パーティにいません！');
 }
 
 function showItemsMenu() {
-    let itemsText = 'ITEMS:\n\n';
+    let itemsText = 'どうぐ:\n\n';
+    const itemNames = {
+        'capture_orb': '捕獲オーブ',
+        'heal_herb': '回復草'
+    };
     Object.entries(GameState.items).forEach(([key, value]) => {
-        const name = key.replace('_', ' ').toUpperCase();
+        const name = itemNames[key] || key;
         itemsText += `${name}: ${value}\n`;
     });
     showMessage(itemsText);
@@ -874,14 +879,14 @@ function showItemsMenu() {
 function showSettingsMenu() {
     GameState.menu.items = [
         {
-            label: `SOUND: ${GameState.settings.soundEnabled ? 'ON' : 'OFF'}`,
+            label: `サウンド: ${GameState.settings.soundEnabled ? 'ON' : 'OFF'}`,
             action: () => {
                 GameState.settings.soundEnabled = !GameState.settings.soundEnabled;
                 Sound.updateVolume();
                 showSettingsMenu();
             }
         },
-        { label: 'BACK', action: () => showMenu() }
+        { label: '戻る', action: () => showMenu() }
     ];
     updateMenuDisplay();
 }
@@ -943,19 +948,23 @@ function updateBattleMenu() {
     let items = [];
 
     if (GameState.battle.menuState === 'main') {
-        items = ['ATTACK', 'ITEM', 'RUN'];
+        items = ['たたかう', 'どうぐ', 'にげる'];
     } else if (GameState.battle.menuState === 'moves') {
         items = GameState.battle.playerCreature.moves.map(moveId => {
             const moveData = getMoveData(moveId);
             return moveData ? moveData.name : moveId;
         });
     } else if (GameState.battle.menuState === 'items') {
+        const itemNames = {
+            'capture_orb': '捕獲オーブ',
+            'heal_herb': '回復草'
+        };
         items = Object.keys(GameState.items)
             .filter(k => GameState.items[k] > 0)
-            .map(k => `${k.replace('_', ' ').toUpperCase()} x${GameState.items[k]}`);
+            .map(k => `${itemNames[k] || k} x${GameState.items[k]}`);
 
         if (items.length === 0) {
-            items = ['NO ITEMS'];
+            items = ['どうぐがない'];
         }
     }
 
@@ -1153,11 +1162,11 @@ function gameLoop() {
 
 // ===== INITIALIZATION =====
 async function init() {
-    console.log('Chrono Bonds: ORIGIN - Loading...');
+    console.log('時の絆：起源 - 読み込み中...');
 
     const loaded = await loadGameData();
     if (!loaded) {
-        alert('Failed to load game data. Please refresh the page.');
+        alert('ゲームデータの読み込みに失敗しました。ページを更新してください。');
         return;
     }
 
@@ -1167,18 +1176,18 @@ async function init() {
 
     // Show intro message
     showDialogue([
-        'Welcome to CHRONO BONDS!',
+        '時の絆へようこそ！',
         '',
-        'Use the D-Pad to move.',
-        'Press A to interact.',
-        'Press MENU to save/load.',
+        '十字キーで移動します。',
+        'Aボタンで調べる/話す。',
+        'メニューでセーブ/ロード。',
         '',
-        'Visit the lab to get your',
-        'first creature companion!'
+        '研究所で最初のパートナーを',
+        '受け取りましょう！'
     ]);
 
     gameLoop();
-    console.log('Game started!');
+    console.log('ゲーム開始！');
 }
 
 // Start the game when page loads

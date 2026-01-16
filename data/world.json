@@ -2,7 +2,7 @@
   "maps": {
     "hometown_modern": {
       "id": "hometown_modern",
-      "name": "Kagen Village (Modern)",
+      "name": "カゲン村（現代）",
       "width": 20,
       "height": 15,
       "timeline": "modern",
@@ -57,7 +57,7 @@
     },
     "hometown_ancient": {
       "id": "hometown_ancient",
-      "name": "Kagen Village (Ancient)",
+      "name": "カゲン村（古代）",
       "width": 20,
       "height": 15,
       "timeline": "ancient",
@@ -109,7 +109,7 @@
     },
     "lab_interior": {
       "id": "lab_interior",
-      "name": "Research Lab",
+      "name": "研究所",
       "width": 10,
       "height": 8,
       "tileSize": 16,
@@ -144,16 +144,16 @@
     }
   },
   "tileset": {
-    "0": {"name": "path", "color": "#9bbc0f"},
-    "1": {"name": "wall", "color": "#306230"},
-    "2": {"name": "ground", "color": "#8bac0f"},
-    "3": {"name": "building_wall", "color": "#0f380f"},
-    "4": {"name": "building_interior", "color": "#9bbc0f"},
-    "5": {"name": "door", "color": "#8bac0f"},
-    "6": {"name": "grass", "color": "#0f380f"},
-    "7": {"name": "water", "color": "#306230"},
-    "8": {"name": "indoor_wall", "color": "#0f380f"},
-    "9": {"name": "indoor_floor", "color": "#9bbc0f"},
-    "10": {"name": "furniture", "color": "#306230"}
+    "0": {"name": "道", "color": "#9bbc0f"},
+    "1": {"name": "壁", "color": "#306230"},
+    "2": {"name": "地面", "color": "#8bac0f"},
+    "3": {"name": "建物壁", "color": "#0f380f"},
+    "4": {"name": "建物内", "color": "#9bbc0f"},
+    "5": {"name": "扉", "color": "#8bac0f"},
+    "6": {"name": "草", "color": "#0f380f"},
+    "7": {"name": "水", "color": "#306230"},
+    "8": {"name": "室内壁", "color": "#0f380f"},
+    "9": {"name": "室内床", "color": "#9bbc0f"},
+    "10": {"name": "家具", "color": "#306230"}
   }
 }

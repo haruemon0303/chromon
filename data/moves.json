@@ -2,59 +2,59 @@
   "moves": [
     {
       "id": "tackle",
-      "name": "Tackle",
-      "type": "Normal",
+      "name": "たいあたり",
+      "type": "無",
       "power": 40,
       "accuracy": 100,
-      "description": "A basic physical attack."
+      "description": "相手に体当たりする基本技。"
     },
     {
       "id": "scratch",
-      "name": "Scratch",
-      "type": "Normal",
+      "name": "ひっかく",
+      "type": "無",
       "power": 40,
       "accuracy": 100,
-      "description": "Scratches with sharp claws."
+      "description": "鋭い爪で引っかく。"
     },
     {
       "id": "vine_strike",
-      "name": "Vine Strike",
-      "type": "Nature",
+      "name": "つるうち",
+      "type": "草",
       "power": 45,
       "accuracy": 95,
-      "description": "Strikes with vine-like tendrils."
+      "description": "蔦のような触手で打ちつける。"
     },
     {
       "id": "flame_burst",
-      "name": "Flame Burst",
-      "type": "Flame",
+      "name": "火炎弾",
+      "type": "炎",
       "power": 50,
       "accuracy": 90,
-      "description": "Unleashes a burst of flames."
+      "description": "炎の塊を放って攻撃する。"
     },
     {
       "id": "water_pulse",
-      "name": "Water Pulse",
-      "type": "Aqua",
+      "name": "水の波動",
+      "type": "水",
       "power": 45,
       "accuracy": 95,
-      "description": "Attacks with pulsing water."
+      "description": "波動を起こして攻撃する。"
     },
     {
       "id": "gust",
-      "name": "Gust",
-      "type": "Sky",
+      "name": "かぜおこし",
+      "type": "風",
       "power": 40,
       "accuracy": 100,
-      "description": "A gust of wind damages the foe."
+      "description": "強風を起こして攻撃する。"
     },
     {
       "id": "rock_throw",
-      "name": "Rock Throw",
-      "type": "Stone",
+      "name": "岩投げ",
+      "type": "岩",
       "power": 50,
       "accuracy": 85,
-      "description": "Throws rocks at the target."
+      "description": "岩を投げつけて攻撃する。"
     }
   ]
 }
