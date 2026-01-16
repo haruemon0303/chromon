@@ -328,6 +328,7 @@ function createCreature(creatureId, level) {
 function updateField() {
     handleFieldInput();
     updateCamera();
+    updateStatusBar();
 
     // Check for random encounters
     if (!GameState.player.moving) {
@@ -547,10 +548,27 @@ function applyTimelineChanges() {
 }
 
 function updateTimelineDisplay() {
-    const timelineEl = document.getElementById('timeline-display');
+    updateStatusBar();
+}
+
+function updateStatusBar() {
+    const timelineEl = document.getElementById('status-timeline');
+    const locationEl = document.getElementById('status-location');
+    const orbsEl = document.getElementById('status-orbs');
+
     if (timelineEl) {
         const timelineName = GameState.player.timeline === 'modern' ? '現代' : '古代';
         timelineEl.textContent = timelineName;
+    }
+
+    if (locationEl) {
+        const map = getCurrentMap();
+        const locationName = map ? map.name.replace(/（現代）|（古代）/g, '').trim() : 'カゲン村';
+        locationEl.textContent = locationName;
+    }
+
+    if (orbsEl) {
+        orbsEl.textContent = GameState.items.capture_orb || 0;
     }
 }
 
@@ -766,6 +784,7 @@ function useItem(itemId) {
 
         GameState.battle.message = `${player.name}のHPが回復した！`;
         updateBattleDisplay();
+        updateStatusBar();
 
         setTimeout(() => {
             enemyTurn();
@@ -797,6 +816,7 @@ function attemptCapture() {
 
     GameState.battle.message = '捕獲オーブを投げた！';
     updateBattleDisplay();
+    updateStatusBar();
 
     // Simulate shakes
     setTimeout(() => {
@@ -998,7 +1018,7 @@ function hideBattleUI() {
 }
 
 function updateBattleDisplay() {
-    const { enemy, playerCreature } = GameState.battle;
+    const { enemy, playerCreature, message } = GameState.battle;
 
     document.getElementById('enemy-name').textContent = `${enemy.name} Lv${enemy.level}`;
     document.getElementById('player-creature-name').textContent =
@@ -1011,6 +1031,16 @@ function updateBattleDisplay() {
     document.getElementById('player-hp-fill').style.width = `${playerHpPercent}%`;
     document.getElementById('player-hp-text').textContent =
         `${playerCreature.currentHp}/${playerCreature.maxHp}`;
+    document.getElementById('enemy-hp-text').textContent =
+        `${enemy.currentHp}/${enemy.maxHp}`;
+
+    // Update battle log
+    if (message) {
+        const logEl = document.getElementById('battle-log-text');
+        if (logEl) {
+            logEl.textContent = message;
+        }
+    }
 }
 
 function updateBattleMenu() {
@@ -1259,7 +1289,7 @@ async function init() {
     ]);
 
     gameLoop();
-    updateTimelineDisplay();
+    updateStatusBar();
     console.log('ゲーム開始！');
 }
 

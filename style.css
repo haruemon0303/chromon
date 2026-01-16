@@ -7,6 +7,15 @@
     --shadow: rgba(15, 56, 15, 0.5);
 }
 
+/* iOS Safe Area Support */
+@supports(padding: max(0px)) {
+    body {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+        padding-bottom: max(0px, env(safe-area-inset-bottom));
+    }
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -62,22 +71,39 @@ html, body {
     display: block;
 }
 
-/* Timeline Indicator */
-#timeline-indicator {
+/* Status Bar */
+#status-bar {
     position: absolute;
-    top: 4px;
-    right: 4px;
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: var(--gb-darkest);
-    border: 2px solid var(--gb-light);
-    padding: 2px 6px;
+    border-bottom: 2px solid var(--gb-light);
+    padding: 3px 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     z-index: 100;
+    height: 16px;
 }
 
-#timeline-display {
-    font-size: 8px;
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 7px;
     color: var(--gb-lightest);
+}
+
+.status-label {
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+#status-timeline,
+#status-location,
+#status-orbs {
     font-weight: bold;
-    letter-spacing: 1px;
 }
 
 /* Text Box */
@@ -180,20 +206,22 @@ html, body {
 .info-box {
     background-color: var(--gb-lightest);
     border: 2px solid var(--gb-darkest);
-    padding: 4px;
-    margin: 8px;
+    padding: 6px;
+    margin: 4px;
     font-size: 8px;
     color: var(--gb-darkest);
+    box-shadow: inset 0 0 0 1px var(--gb-dark);
 }
 
 #enemy-info {
     align-self: flex-end;
-    min-width: 100px;
+    min-width: 110px;
+    margin-top: 20px;
 }
 
 #player-info {
     align-self: flex-start;
-    min-width: 100px;
+    min-width: 110px;
 }
 
 .creature-name {
@@ -227,6 +255,46 @@ html, body {
 
 .hp-text {
     font-size: 6px;
+    min-width: 30px;
+    text-align: right;
+}
+
+/* Battle Log */
+#battle-log {
+    background-color: var(--gb-lightest);
+    border: 2px solid var(--gb-darkest);
+    margin: 4px 8px;
+    padding: 6px 8px;
+    min-height: 32px;
+    max-height: 48px;
+    overflow: hidden;
+    font-size: 8px;
+    color: var(--gb-darkest);
+    line-height: 1.3;
+}
+
+#battle-log-text {
+    white-space: pre-wrap;
+}
+
+/* Button Guide */
+#button-guide {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    font-size: 6px;
+    color: var(--gb-light);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+#button-guide span {
+    background-color: var(--gb-darkest);
+    padding: 1px 4px;
+    border-radius: 2px;
 }
 
 /* Battle Menu */
@@ -245,13 +313,18 @@ html, body {
 }
 
 .battle-menu-item {
-    padding: 6px;
-    font-size: 8px;
+    padding: 10px 8px;
+    min-height: 44px;
+    font-size: 9px;
     background-color: var(--gb-light);
     border: 2px solid var(--gb-dark);
     color: var(--gb-darkest);
     cursor: pointer;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
 
 .battle-menu-item.selected {
@@ -278,8 +351,8 @@ html, body {
 /* D-Pad */
 #dpad {
     display: grid;
-    grid-template-columns: repeat(3, 50px);
-    grid-template-rows: repeat(3, 50px);
+    grid-template-columns: repeat(3, 55px);
+    grid-template-rows: repeat(3, 55px);
     gap: 2px;
 }
 
@@ -294,6 +367,8 @@ html, body {
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .dpad-btn:active {
@@ -320,8 +395,10 @@ html, body {
 }
 
 .action-btn {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 50%;
     background-color: var(--gb-light);
     border: 4px solid var(--gb-darkest);
@@ -348,7 +425,9 @@ html, body {
 }
 
 .menu-btn {
-    padding: 8px 16px;
+    padding: 10px 18px;
+    min-width: 80px;
+    min-height: 44px;
     background-color: var(--gb-dark);
     border: 3px solid var(--gb-darkest);
     color: var(--gb-lightest);

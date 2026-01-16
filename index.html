@@ -12,9 +12,20 @@
     <div id="game-container">
         <!-- Game Boy Screen -->
         <div id="screen-container">
-            <!-- Timeline Display -->
-            <div id="timeline-indicator">
-                <span id="timeline-display">現代</span>
+            <!-- Status Bar -->
+            <div id="status-bar">
+                <div class="status-item">
+                    <span class="status-label">時代:</span>
+                    <span id="status-timeline">現代</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">場所:</span>
+                    <span id="status-location">カゲン村</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">オーブ:</span>
+                    <span id="status-orbs">5</span>
+                </div>
             </div>
 
             <canvas id="game-canvas" width="160" height="144"></canvas>
@@ -42,6 +53,7 @@
                         <div class="hp-bar">
                             <div class="hp-fill" id="enemy-hp-fill"></div>
                         </div>
+                        <div class="hp-text" id="enemy-hp-text">0/0</div>
                     </div>
                 </div>
                 <div id="player-info" class="info-box">
@@ -54,8 +66,15 @@
                         <div class="hp-text" id="player-hp-text">0/0</div>
                     </div>
                 </div>
+                <div id="battle-log">
+                    <div id="battle-log-text"></div>
+                </div>
                 <div id="battle-menu" class="battle-menu">
                     <div class="battle-menu-items" id="battle-menu-items"></div>
+                </div>
+                <div id="button-guide">
+                    <span>A:決定</span>
+                    <span>B:戻る</span>
                 </div>
             </div>
         </div>
