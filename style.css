@@ -1,0 +1,412 @@
+/* Game Boy Color Palette (Green) */
+:root {
+    --gb-darkest: #0f380f;
+    --gb-dark: #306230;
+    --gb-light: #8bac0f;
+    --gb-lightest: #9bbc0f;
+    --shadow: rgba(15, 56, 15, 0.5);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    touch-action: none;
+    background-color: var(--gb-darkest);
+    font-family: 'Courier New', monospace;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Main Game Container */
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    background-color: var(--gb-darkest);
+}
+
+/* Screen Container */
+#screen-container {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    aspect-ratio: 160/144;
+    background-color: var(--gb-lightest);
+    border: 4px solid var(--gb-dark);
+    box-shadow: inset 0 0 0 2px var(--gb-darkest),
+                0 4px 8px var(--shadow);
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* Canvas */
+#game-canvas {
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    display: block;
+}
+
+/* Text Box */
+#text-box {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    background-color: var(--gb-lightest);
+    border: 3px solid var(--gb-darkest);
+    padding: 8px;
+    font-size: 8px;
+    line-height: 1.4;
+    color: var(--gb-darkest);
+    box-shadow: inset 0 0 0 1px var(--gb-dark);
+}
+
+#text-content {
+    min-height: 32px;
+    white-space: pre-wrap;
+}
+
+#text-arrow {
+    position: absolute;
+    bottom: 4px;
+    right: 8px;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+/* Menu Overlay */
+#menu-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 56, 15, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-window {
+    background-color: var(--gb-lightest);
+    border: 3px solid var(--gb-darkest);
+    padding: 12px;
+    min-width: 120px;
+    box-shadow: inset 0 0 0 1px var(--gb-dark);
+}
+
+.menu-title {
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--gb-darkest);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.menu-item {
+    padding: 4px 8px;
+    font-size: 8px;
+    color: var(--gb-darkest);
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.menu-item.selected {
+    background-color: var(--gb-dark);
+    color: var(--gb-lightest);
+}
+
+.menu-item:hover {
+    background-color: var(--gb-light);
+}
+
+/* Battle UI */
+#battle-ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.info-box {
+    background-color: var(--gb-lightest);
+    border: 2px solid var(--gb-darkest);
+    padding: 4px;
+    margin: 8px;
+    font-size: 8px;
+    color: var(--gb-darkest);
+}
+
+#enemy-info {
+    align-self: flex-end;
+    min-width: 100px;
+}
+
+#player-info {
+    align-self: flex-start;
+    min-width: 100px;
+}
+
+.creature-name {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.hp-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.hp-label {
+    font-size: 7px;
+}
+
+.hp-bar {
+    flex: 1;
+    height: 4px;
+    background-color: var(--gb-dark);
+    border: 1px solid var(--gb-darkest);
+    position: relative;
+}
+
+.hp-fill {
+    height: 100%;
+    background-color: var(--gb-light);
+    transition: width 0.3s ease;
+}
+
+.hp-text {
+    font-size: 6px;
+}
+
+/* Battle Menu */
+.battle-menu {
+    background-color: var(--gb-lightest);
+    border: 2px solid var(--gb-darkest);
+    margin: 8px;
+    padding: 8px;
+    pointer-events: auto;
+}
+
+.battle-menu-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+}
+
+.battle-menu-item {
+    padding: 6px;
+    font-size: 8px;
+    background-color: var(--gb-light);
+    border: 2px solid var(--gb-dark);
+    color: var(--gb-darkest);
+    cursor: pointer;
+    text-align: center;
+}
+
+.battle-menu-item.selected {
+    background-color: var(--gb-dark);
+    color: var(--gb-lightest);
+    border-color: var(--gb-darkest);
+}
+
+.battle-menu-item:active {
+    transform: scale(0.95);
+}
+
+/* Controls */
+#controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    max-width: 480px;
+    padding: 10px 0;
+    gap: 20px;
+}
+
+/* D-Pad */
+#dpad {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
+    gap: 2px;
+}
+
+.dpad-btn {
+    background-color: var(--gb-dark);
+    border: 3px solid var(--gb-darkest);
+    color: var(--gb-lightest);
+    font-size: 20px;
+    cursor: pointer;
+    touch-action: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.dpad-btn:active {
+    background-color: var(--gb-darkest);
+    transform: scale(0.95);
+}
+
+#btn-up { grid-area: 1 / 2 / 2 / 3; }
+#btn-left { grid-area: 2 / 1 / 3 / 2; }
+#btn-center {
+    grid-area: 2 / 2 / 3 / 3;
+    background-color: var(--gb-darkest);
+    border: none;
+    cursor: default;
+}
+#btn-right { grid-area: 2 / 3 / 3 / 4; }
+#btn-down { grid-area: 3 / 2 / 4 / 3; }
+
+/* Action Buttons */
+#action-buttons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.action-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--gb-light);
+    border: 4px solid var(--gb-darkest);
+    color: var(--gb-darkest);
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    touch-action: none;
+    box-shadow: 0 4px 0 var(--gb-dark);
+}
+
+.action-btn:active {
+    background-color: var(--gb-dark);
+    color: var(--gb-lightest);
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--gb-darkest);
+}
+
+/* Menu Button */
+#menu-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.menu-btn {
+    padding: 8px 16px;
+    background-color: var(--gb-dark);
+    border: 3px solid var(--gb-darkest);
+    color: var(--gb-lightest);
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    touch-action: none;
+}
+
+.menu-btn:active {
+    background-color: var(--gb-darkest);
+    transform: scale(0.95);
+}
+
+/* Title */
+#game-title {
+    text-align: center;
+    color: var(--gb-light);
+    margin-top: 10px;
+}
+
+.title-main {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.title-sub {
+    font-size: 10px;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-height: 700px) {
+    #controls {
+        padding: 5px 0;
+    }
+
+    #dpad {
+        grid-template-columns: repeat(3, 40px);
+        grid-template-rows: repeat(3, 40px);
+    }
+
+    .action-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 16px;
+    }
+}
+
+@media (max-height: 600px) {
+    #game-title {
+        display: none;
+    }
+}
+
+/* Landscape mode warning */
+@media (orientation: landscape) and (max-height: 500px) {
+    #game-container::before {
+        content: "Please rotate to portrait mode";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--gb-darkest);
+        color: var(--gb-lightest);
+        padding: 20px;
+        border: 3px solid var(--gb-light);
+        z-index: 10000;
+        font-size: 14px;
+        text-align: center;
+    }
+}

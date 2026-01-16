@@ -1,0 +1,60 @@
+{
+  "moves": [
+    {
+      "id": "tackle",
+      "name": "Tackle",
+      "type": "Normal",
+      "power": 40,
+      "accuracy": 100,
+      "description": "A basic physical attack."
+    },
+    {
+      "id": "scratch",
+      "name": "Scratch",
+      "type": "Normal",
+      "power": 40,
+      "accuracy": 100,
+      "description": "Scratches with sharp claws."
+    },
+    {
+      "id": "vine_strike",
+      "name": "Vine Strike",
+      "type": "Nature",
+      "power": 45,
+      "accuracy": 95,
+      "description": "Strikes with vine-like tendrils."
+    },
+    {
+      "id": "flame_burst",
+      "name": "Flame Burst",
+      "type": "Flame",
+      "power": 50,
+      "accuracy": 90,
+      "description": "Unleashes a burst of flames."
+    },
+    {
+      "id": "water_pulse",
+      "name": "Water Pulse",
+      "type": "Aqua",
+      "power": 45,
+      "accuracy": 95,
+      "description": "Attacks with pulsing water."
+    },
+    {
+      "id": "gust",
+      "name": "Gust",
+      "type": "Sky",
+      "power": 40,
+      "accuracy": 100,
+      "description": "A gust of wind damages the foe."
+    },
+    {
+      "id": "rock_throw",
+      "name": "Rock Throw",
+      "type": "Stone",
+      "power": 50,
+      "accuracy": 85,
+      "description": "Throws rocks at the target."
+    }
+  ]
+}

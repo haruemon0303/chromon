@@ -1,0 +1,85 @@
+{
+  "dialogues": {
+    "professor_intro": {
+      "text": [
+        "Welcome to Kagen Village!",
+        "I am Professor Chronos.",
+        "I study the ancient ruins and",
+        "the mysteries of time itself.",
+        "Have you been to the lab yet?",
+        "My assistant can give you a",
+        "companion creature to start!"
+      ]
+    },
+    "rival_intro": {
+      "text": [
+        "Hey! I'm getting my first",
+        "creature today too!",
+        "Let's see who becomes the",
+        "better trainer!"
+      ]
+    },
+    "elder_intro": {
+      "text": [
+        "Greetings, traveler.",
+        "In ancient times, people lived",
+        "in harmony with creatures.",
+        "The great tree connects past",
+        "and future. Guard it well."
+      ]
+    },
+    "assistant_starter": {
+      "text": [
+        "Hello! Welcome to the lab!",
+        "Would you like to choose your",
+        "first companion creature?",
+        "",
+        "We have three available:",
+        "SPROUTAIL (Nature type)",
+        "EMBERCUB (Flame type)",
+        "AQUAFIN (Aqua type)",
+        "",
+        "Which will you choose?"
+      ],
+      "choices": ["Sproutail", "Embercub", "Aquafin"],
+      "giveCreature": true
+    },
+    "timeline_event": {
+      "text": [
+        "You approach the great tree.",
+        "Its roots glow with ancient",
+        "energy...",
+        "",
+        "The world shimmers around you!",
+        "",
+        "Time itself is shifting!",
+        "",
+        "You have crossed into a",
+        "different era!"
+      ],
+      "triggersTimeline": true
+    },
+    "wild_encounter": {
+      "text": [
+        "A wild creature appeared!"
+      ]
+    },
+    "battle_won": {
+      "text": [
+        "You won the battle!",
+        "Your creature gained EXP!"
+      ]
+    },
+    "capture_success": {
+      "text": [
+        "Gotcha!",
+        "{creature} was captured!"
+      ]
+    },
+    "capture_fail": {
+      "text": [
+        "Oh no! The creature broke free!"
+      ]
+    }
+  }
+}

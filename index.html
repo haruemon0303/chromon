@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Chrono Bonds: ORIGIN</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Game Boy Screen -->
+        <div id="screen-container">
+            <canvas id="game-canvas" width="160" height="144"></canvas>
+
+            <!-- Text Box Overlay -->
+            <div id="text-box" class="hidden">
+                <div id="text-content"></div>
+                <div id="text-arrow">▼</div>
+            </div>
+
+            <!-- Menu Overlay -->
+            <div id="menu-overlay" class="hidden">
+                <div class="menu-window">
+                    <div class="menu-title">MENU</div>
+                    <div class="menu-items" id="menu-items"></div>
+                </div>
+            </div>
+
+            <!-- Battle UI Overlay -->
+            <div id="battle-ui" class="hidden">
+                <div id="enemy-info" class="info-box">
+                    <div class="creature-name" id="enemy-name">---</div>
+                    <div class="hp-bar-container">
+                        <div class="hp-label">HP:</div>
+                        <div class="hp-bar">
+                            <div class="hp-fill" id="enemy-hp-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="player-info" class="info-box">
+                    <div class="creature-name" id="player-creature-name">---</div>
+                    <div class="hp-bar-container">
+                        <div class="hp-label">HP:</div>
+                        <div class="hp-bar">
+                            <div class="hp-fill" id="player-hp-fill"></div>
+                        </div>
+                        <div class="hp-text" id="player-hp-text">0/0</div>
+                    </div>
+                </div>
+                <div id="battle-menu" class="battle-menu">
+                    <div class="battle-menu-items" id="battle-menu-items"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div id="controls">
+            <!-- D-Pad -->
+            <div id="dpad">
+                <button class="dpad-btn" id="btn-up" data-key="up">▲</button>
+                <button class="dpad-btn" id="btn-left" data-key="left">◄</button>
+                <button class="dpad-btn" id="btn-center"></button>
+                <button class="dpad-btn" id="btn-right" data-key="right">►</button>
+                <button class="dpad-btn" id="btn-down" data-key="down">▼</button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div id="action-buttons">
+                <button class="action-btn" id="btn-b" data-key="b">B</button>
+                <button class="action-btn" id="btn-a" data-key="a">A</button>
+            </div>
+
+            <!-- Menu Button -->
+            <div id="menu-button">
+                <button class="menu-btn" id="btn-menu" data-key="menu">MENU</button>
+            </div>
+        </div>
+
+        <!-- Title Info -->
+        <div id="game-title">
+            <div class="title-main">CHRONO BONDS</div>
+            <div class="title-sub">ORIGIN</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

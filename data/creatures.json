@@ -1,0 +1,79 @@
+{
+  "creatures": [
+    {
+      "id": "sproutail",
+      "name": "Sproutail",
+      "type": "Nature",
+      "baseStats": {
+        "hp": 45,
+        "attack": 49,
+        "defense": 49,
+        "speed": 45
+      },
+      "moves": ["vine_strike", "tackle"],
+      "captureRate": 45,
+      "wildLevel": [3, 5],
+      "description": "A small creature with a tail like a sprouting plant. Found in grasslands."
+    },
+    {
+      "id": "embercub",
+      "name": "Embercub",
+      "type": "Flame",
+      "baseStats": {
+        "hp": 39,
+        "attack": 52,
+        "defense": 43,
+        "speed": 65
+      },
+      "moves": ["flame_burst", "scratch"],
+      "captureRate": 45,
+      "wildLevel": [3, 5],
+      "description": "A fiery young beast. Its fur glows when excited."
+    },
+    {
+      "id": "aquafin",
+      "name": "Aquafin",
+      "type": "Aqua",
+      "baseStats": {
+        "hp": 44,
+        "attack": 48,
+        "defense": 65,
+        "speed": 43
+      },
+      "moves": ["water_pulse", "tackle"],
+      "captureRate": 45,
+      "wildLevel": [3, 5],
+      "description": "A creature with fin-like appendages. Lives near water."
+    },
+    {
+      "id": "windling",
+      "name": "Windling",
+      "type": "Sky",
+      "baseStats": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 40,
+        "speed": 70
+      },
+      "moves": ["gust", "tackle"],
+      "captureRate": 50,
+      "wildLevel": [2, 4],
+      "description": "A swift aerial creature. Rarely touches the ground."
+    },
+    {
+      "id": "rockhorn",
+      "name": "Rockhorn",
+      "type": "Stone",
+      "baseStats": {
+        "hp": 50,
+        "attack": 65,
+        "defense": 70,
+        "speed": 25
+      },
+      "moves": ["rock_throw", "tackle"],
+      "captureRate": 40,
+      "wildLevel": [3, 6],
+      "description": "A sturdy creature with a horn made of hardened stone."
+    }
+  ]
+}
