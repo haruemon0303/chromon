@@ -481,11 +481,21 @@ function triggerEvent(event) {
     const dialogueData = GameState.data.dialogue.dialogues[event.dialogue];
     if (!dialogueData) return;
 
-    showDialogue(dialogueData.text, null, () => {
-        if (dialogueData.triggersTimeline && !GameState.flags.timeline_switched) {
+    // 時代切替イベントの処理
+    if (dialogueData.triggersTimeline) {
+        if (!GameState.flags.timeline_switched) {
+            // 初回：イベント演出を見せてから切替
+            showDialogue(dialogueData.text, null, () => {
+                switchTimeline();
+            });
+        } else {
+            // 2回目以降：すぐに切替
             switchTimeline();
         }
-    });
+    } else {
+        // 通常の会話
+        showDialogue(dialogueData.text);
+    }
 }
 
 function switchTimeline() {
