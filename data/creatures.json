@@ -50,14 +50,14 @@
       "name": "フウヨク",
       "type": "風",
       "baseStats": {
-        "hp": 40,
-        "attack": 45,
-        "defense": 40,
-        "speed": 70
+        "hp": 42,
+        "attack": 47,
+        "defense": 42,
+        "speed": 68
       },
       "moves": ["gust", "tackle"],
       "captureRate": 50,
-      "wildLevel": [2, 4],
+      "wildLevel": [3, 5],
       "description": "素早く空を飛ぶ生物。滅多に地面に降りない。"
     },
     {
@@ -65,14 +65,14 @@
       "name": "ガンカク",
       "type": "岩",
       "baseStats": {
-        "hp": 50,
-        "attack": 65,
-        "defense": 70,
-        "speed": 25
+        "hp": 48,
+        "attack": 58,
+        "defense": 62,
+        "speed": 28
       },
       "moves": ["rock_throw", "tackle"],
-      "captureRate": 40,
-      "wildLevel": [3, 6],
+      "captureRate": 45,
+      "wildLevel": [4, 7],
       "description": "硬質化した角を持つ頑丈な生物。"
     }
   ]

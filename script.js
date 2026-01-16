@@ -766,10 +766,12 @@ function calculateDamage(attacker, defender, move) {
     const baseDamage = move.power;
     const attackStat = attacker.attack;
     const defenseStat = defender.defense;
+    const levelMod = 1 + (attacker.level / 50); // レベル補正
     const random = 0.85 + Math.random() * 0.15;
 
+    // ダメージ計算式を調整（0.35倍に下方修正で序盤を安定化）
     return Math.max(1, Math.floor(
-        (baseDamage * attackStat / defenseStat * 0.4 + 2) * random
+        (baseDamage * attackStat / defenseStat * levelMod * 0.35 + 2) * random
     ));
 }
 
@@ -778,7 +780,8 @@ function useItem(itemId) {
         attemptCapture();
     } else if (itemId === 'heal_herb') {
         const player = GameState.battle.playerCreature;
-        const healAmount = Math.floor(player.maxHp * 0.5);
+        // 回復量を60%に増加（序盤の生存性向上）
+        const healAmount = Math.floor(player.maxHp * 0.6);
         player.currentHp = Math.min(player.maxHp, player.currentHp + healAmount);
         GameState.items.heal_herb--;
 
@@ -812,7 +815,9 @@ function attemptCapture() {
     const enemy = GameState.battle.enemy;
     const creatureData = getCreatureData(enemy.id);
     const hpRatio = enemy.currentHp / enemy.maxHp;
-    const catchRate = creatureData.captureRate * (1 - hpRatio * 0.5);
+    // 捕獲率計算を改善：HPが低いほど成功率大幅アップ
+    // HP100% → base%, HP50% → base*1.5%, HP25% → base*2%, HP1% → base*3%
+    const catchRate = creatureData.captureRate * (1 + (1 - hpRatio) * 2);
 
     GameState.battle.message = '捕獲オーブを投げた！';
     updateBattleDisplay();
@@ -851,7 +856,8 @@ function captureFail() {
 }
 
 function attemptRun() {
-    const runChance = 50 + (GameState.battle.playerCreature.speed - GameState.battle.enemy.speed);
+    // 逃走基本確率を70%に上昇（序盤の理不尽回避）
+    const runChance = 70 + (GameState.battle.playerCreature.speed - GameState.battle.enemy.speed);
 
     if (Math.random() * 100 < runChance) {
         GameState.battle.message = 'うまく逃げ切れた！';
