@@ -62,6 +62,24 @@ html, body {
     display: block;
 }
 
+/* Timeline Indicator */
+#timeline-indicator {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background-color: var(--gb-darkest);
+    border: 2px solid var(--gb-light);
+    padding: 2px 6px;
+    z-index: 100;
+}
+
+#timeline-display {
+    font-size: 8px;
+    color: var(--gb-lightest);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
 /* Text Box */
 #text-box {
     position: absolute;

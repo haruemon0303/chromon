@@ -33,7 +33,8 @@ const GameState = {
     },
     flags: {
         has_starter: false,
-        timeline_switched: false
+        timeline_switched: false,
+        ancient_tree_removed: false
     },
     settings: {
         soundEnabled: true,
@@ -440,6 +441,10 @@ function interactWithNPC(npc) {
         showDialogue(dialogueData.text, dialogueData.choices, (choice) => {
             giveStarterCreature(choice);
         });
+    } else if (dialogueData.triggersChoice && !GameState.flags.ancient_tree_removed && npc.id === 'ancient_guide') {
+        showDialogue(dialogueData.text, dialogueData.choices, (choice) => {
+            handleAncientChoice(choice);
+        });
     } else {
         showDialogue(dialogueData.text);
     }
@@ -455,6 +460,20 @@ function giveStarterCreature(choice) {
 
     showMessage(`${creature.name}を仲間にした！`);
     Sound.play('success');
+}
+
+function handleAncientChoice(choice) {
+    if (choice === 0) {
+        // 倒木をどける
+        GameState.flags.ancient_tree_removed = true;
+        showDialogue(GameState.data.dialogue.dialogues.tree_removed.text);
+        Sound.play('success');
+    } else {
+        // そのままにする
+        GameState.flags.ancient_tree_removed = false;
+        showDialogue(GameState.data.dialogue.dialogues.tree_kept.text);
+        Sound.play('select');
+    }
 }
 
 function triggerEvent(event) {
@@ -478,8 +497,61 @@ function switchTimeline() {
     GameState.player.map = newMap;
     GameState.flags.timeline_switched = true;
 
+    // 現代に戻る時、選択に応じてマップを変更
+    if (newTimeline === 'modern') {
+        applyTimelineChanges();
+    }
+
     showMessage(`${timelineName}に時間が移動した！`);
     Sound.play('success');
+    updateTimelineDisplay();
+}
+
+function applyTimelineChanges() {
+    // 古代での選択によって現代マップを変更
+    const modernMap = GameState.data.world.maps.hometown_modern;
+
+    if (GameState.flags.ancient_tree_removed) {
+        // 倒木をどけた場合：y=9-10, x=8-10の障害物を通行可能にする
+        // 衝突レイヤーを変更（1を0に）
+        modernMap.collisionLayer[9][8] = 0;
+        modernMap.collisionLayer[9][9] = 0;
+        modernMap.collisionLayer[9][10] = 0;
+        modernMap.collisionLayer[10][8] = 0;
+        modernMap.collisionLayer[10][9] = 0;
+        modernMap.collisionLayer[10][10] = 0;
+
+        // タイルも通行可能なものに変更（草タイル6に）
+        modernMap.tiles[9][8] = 6;
+        modernMap.tiles[9][9] = 6;
+        modernMap.tiles[9][10] = 6;
+        modernMap.tiles[10][8] = 6;
+        modernMap.tiles[10][9] = 6;
+        modernMap.tiles[10][10] = 6;
+    } else {
+        // そのままにした場合：障害物を配置（復元）
+        modernMap.collisionLayer[9][8] = 1;
+        modernMap.collisionLayer[9][9] = 1;
+        modernMap.collisionLayer[9][10] = 1;
+        modernMap.collisionLayer[10][8] = 1;
+        modernMap.collisionLayer[10][9] = 1;
+        modernMap.collisionLayer[10][10] = 1;
+
+        modernMap.tiles[9][8] = 1;
+        modernMap.tiles[9][9] = 1;
+        modernMap.tiles[9][10] = 1;
+        modernMap.tiles[10][8] = 1;
+        modernMap.tiles[10][9] = 1;
+        modernMap.tiles[10][10] = 1;
+    }
+}
+
+function updateTimelineDisplay() {
+    const timelineEl = document.getElementById('timeline-display');
+    if (timelineEl) {
+        const timelineName = GameState.player.timeline === 'modern' ? '現代' : '古代';
+        timelineEl.textContent = timelineName;
+    }
 }
 
 function showDialogue(lines, choices = null, callback = null) {
@@ -1187,6 +1259,7 @@ async function init() {
     ]);
 
     gameLoop();
+    updateTimelineDisplay();
     console.log('ゲーム開始！');
 }
 

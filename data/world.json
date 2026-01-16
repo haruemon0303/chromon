@@ -103,7 +103,8 @@
         {"x": 9, "y": 5, "toMap": "lab_interior", "toX": 4, "toY": 6, "direction": "up"}
       ],
       "npcs": [
-        {"id": "elder", "x": 4, "y": 3, "dialogue": "elder_intro", "sprite": "npc"}
+        {"id": "elder", "x": 4, "y": 3, "dialogue": "elder_intro", "sprite": "npc"},
+        {"id": "ancient_guide", "x": 9, "y": 10, "dialogue": "ancient_choice", "sprite": "npc"}
       ],
       "events": []
     },
