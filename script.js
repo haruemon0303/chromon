@@ -588,21 +588,41 @@ function showDialogue(lines, choices = null, callback = null) {
     GameState.dialogue.lines = lines;
     GameState.dialogue.currentLine = 0;
     GameState.dialogue.choices = choices;
+    GameState.dialogue.selectedIndex = 0;  // 選択肢のインデックスを初期化
     GameState.dialogue.callback = callback;
 
     updateDialogueDisplay();
 }
 
 function updateDialogue() {
+    // 選択肢がある場合、上下キーで選択可能
+    if (GameState.dialogue.choices && GameState.dialogue.currentLine === GameState.dialogue.lines.length - 1) {
+        if (wasPressed('up')) {
+            Sound.play('select');
+            GameState.dialogue.selectedIndex = Math.max(0, GameState.dialogue.selectedIndex - 1);
+            updateDialogueDisplay();
+            return;
+        }
+        if (wasPressed('down')) {
+            Sound.play('select');
+            GameState.dialogue.selectedIndex = Math.min(
+                GameState.dialogue.choices.length - 1,
+                GameState.dialogue.selectedIndex + 1
+            );
+            updateDialogueDisplay();
+            return;
+        }
+    }
+
     if (wasPressed('a')) {
         Sound.play('select');
 
-        if (GameState.dialogue.choices) {
+        if (GameState.dialogue.choices && GameState.dialogue.currentLine === GameState.dialogue.lines.length - 1) {
             // Handle choice selection
-            const choice = GameState.dialogue.choices[GameState.dialogue.selectedIndex || 0];
+            const choiceIndex = GameState.dialogue.selectedIndex || 0;
             closeDialogue();
             if (GameState.dialogue.callback) {
-                GameState.dialogue.callback(GameState.dialogue.selectedIndex || 0);
+                GameState.dialogue.callback(choiceIndex);
             }
         } else if (GameState.dialogue.currentLine < GameState.dialogue.lines.length - 1) {
             GameState.dialogue.currentLine++;
@@ -626,7 +646,19 @@ function updateDialogueDisplay() {
     const textContent = document.getElementById('text-content');
 
     textBox.classList.remove('hidden');
-    textContent.textContent = GameState.dialogue.lines[GameState.dialogue.currentLine];
+
+    let displayText = GameState.dialogue.lines[GameState.dialogue.currentLine];
+
+    // 最後の行で選択肢がある場合、選択肢を表示
+    if (GameState.dialogue.choices && GameState.dialogue.currentLine === GameState.dialogue.lines.length - 1) {
+        displayText += '\n\n';
+        GameState.dialogue.choices.forEach((choice, index) => {
+            const marker = index === GameState.dialogue.selectedIndex ? '▶ ' : '  ';
+            displayText += marker + choice + '\n';
+        });
+    }
+
+    textContent.textContent = displayText;
 }
 
 function closeDialogue() {
@@ -650,6 +682,7 @@ function triggerEncounter(zone) {
     GameState.battle.playerCreature = GameState.party[0];
     GameState.battle.menuState = 'main';
     GameState.battle.selectedIndex = 0;
+    GameState.battle.animating = false;  // 戦闘開始時にリセット
     GameState.battle.message = `野生の${enemy.name}が現れた！`;
     GameState.battle.active = true;
     GameState.mode = 'battle';
@@ -912,6 +945,8 @@ function loseBattle() {
 
 function endBattle() {
     GameState.battle.active = false;
+    GameState.battle.animating = false;  // フラグをリセット
+    GameState.battle.menuState = 'main';  // メニュー状態をリセット
     GameState.mode = 'field';
     hideBattleUI();
 }
